@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         CCC: Cardmarket Currency Converter
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      0.1
 // @description  Replaces price of cards on Cardmarket.com from Euro to user's local currency.
-// @author       Daniel Rogowski (github.com/danrog303)
+// @author       Daniel Rogowski (danrog303)
 // @match        https://www.cardmarket.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=cardmarket.com
 // @grant        none
@@ -16,13 +16,13 @@
     const userCurrencyDisplaySymbol = "zł";
 
     const fetchCurrencyExchangeRate = async () => {
-        const euroExchangeRateEndpoint = `https://currency-conversion.danielrogowski.net/EUR/${userCurrencyCode}`;
+        const euroExchangeRateEndpoint = `https://currency.danielrogowski.net/EUR/${userCurrencyCode}`;
         const euroExchangeRateResponse = await fetch(euroExchangeRateEndpoint);
         const euroExchangeRate = await euroExchangeRateResponse.json();
 
         const currencyCacheData = {
             rate: parseFloat(euroExchangeRate.rate),
-            lastUpdateDate: new Date(euroExchangeRate.lastUpdateDate)
+            lastUpdateDate: euroExchangeRate.lastUpdateDate.toString()
         };
 
         localStorage.setItem(`ccc-exchangeRate-${userCurrencyCode}`, JSON.stringify(currencyCacheData));
@@ -67,7 +67,7 @@
             domElementInnerText = domElementInnerText.replaceAll(itemPriceInEuroString, itemPriceInPlnString);
         }
 
-        // Temporarily disables mutation observer in order to avoid infinite loop
+        // Temporarily disable mutation observer in order to avoid infinite loop
         observer.disconnect();
         domElement.innerText = domElementInnerText;
         observer.observe(document.body, observerOptions);
