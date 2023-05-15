@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  currency-conversion
+  Sample SAM Template for currency-conversion
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Environment:
+      Variables:
+        AWS_LAMBDA_REGION: eu-central-1
+        EXCHANGE_RATES_API_KEY: PUT_YOUR_API_KEY_HERE  # key can be generated on exchangerate-api.com
+        DYNAMODB_CACHE_TABLE: !Ref CurrencyConversionCache
+
+Resources:
+  CurrencyConversionLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: get-exchange-rates/
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Policies:
+        - AWSLambdaExecute
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CurrencyConversionCache
+      Architectures:
+      - x86_64
+      Events:
+        ConvertCurrenciesRequest:
+          Type: Api
+          Properties:
+            RestApiId: !Ref CurrencyConversionApi
+            Path: /{sourceCurrencySymbol}/{destinationCurrencySymbol}
+            Method: get
+
+  CurrencyConversionCache:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: CurrencyConversionCache
+      AttributeDefinitions:
+        - AttributeName: sourceCurrency
+          AttributeType: S
+        - AttributeName: lastUpdateDate
+          AttributeType: S
+      KeySchema:
+        - AttributeName: sourceCurrency
+          KeyType: HASH
+        - AttributeName: lastUpdateDate
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+
+  CurrencyConversionApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+
+Outputs:
+  CurrencyConversionApiUrl:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${CurrencyConversionApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  CurrencyConversionLambdaArn:
+    Description: ARN of CurrencyConversionLambda
+    Value: !GetAtt CurrencyConversionLambda.Arn
+  CurrencyConversionLambdaRoleArn:
+    Description: Implicit IAM Role created for Hello World function
+    Value: !GetAtt CurrencyConversionLambdaRole.Arn
