@@ -11,16 +11,17 @@ Globals:
     Environment:
       Variables:
         AWS_LAMBDA_REGION: eu-central-1
-        EXCHANGE_RATES_API_KEY: PUT_YOUR_API_KEY_HERE  # key can be generated on exchangerate-api.com
+        EXCHANGE_RATES_API_KEY: 94e07eca3342d91094a2c24f  # key can be generated on exchangerate-api.com
         DYNAMODB_CACHE_TABLE: !Ref CurrencyConversionCache
 
 Resources:
   CurrencyConversionLambda:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: currency-conversion-lambda
       CodeUri: get-exchange-rates/
       Handler: app.lambdaHandler
-      Runtime: nodejs16.x
+      Runtime: nodejs20.x
       Policies:
         - AWSLambdaExecute
         - DynamoDBCrudPolicy:
@@ -32,13 +33,13 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref CurrencyConversionApi
-            Path: /{sourceCurrencySymbol}/{destinationCurrencySymbol}
+            Path: /currency/{sourceCurrencySymbol}
             Method: get
 
   CurrencyConversionCache:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: CurrencyConversionCache
+      TableName: currency-conversion-cache
       AttributeDefinitions:
         - AttributeName: sourceCurrency
           AttributeType: S
@@ -56,6 +57,7 @@ Resources:
   CurrencyConversionApi:
     Type: AWS::Serverless::Api
     Properties:
+      Name: currency-conversion-api
       StageName: Prod
       Cors:
         AllowMethods: "'*'"

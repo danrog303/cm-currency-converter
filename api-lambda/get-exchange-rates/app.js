@@ -67,29 +67,27 @@ const fetchExchangeRateFromRemoteApi = async (sourceCurrency) => {
  * Handles GET request to the API Gateway HTTP endpoint.
  */
 export const lambdaHandler = async (event) => {
-    // Read and parse user input
-    let { sourceCurrencySymbol, destinationCurrencySymbol } = event.pathParameters;
+    console.log("Currency exchange rate request received:", JSON.stringify(event));
+    let { sourceCurrencySymbol } = event.pathParameters;
     sourceCurrencySymbol = sourceCurrencySymbol.toUpperCase();
-    destinationCurrencySymbol = destinationCurrencySymbol.toUpperCase();
-
-    // Try to read exchange rates from DynamoDB cache
-    // If cache missed, rebuild cache from the remote API
+    
+    console.log("Fetching exchange rate from cache");
     let cacheHit = true;
     let currencyExchangeRate = await fetchExchangeRatesFromCache(sourceCurrencySymbol);
     if (currencyExchangeRate === null) {
+        console.log("Cache miss, fetching exchange rate from remote API");
         cacheHit = false;
         currencyExchangeRate = await fetchExchangeRateFromRemoteApi(sourceCurrencySymbol);
         await putExchangeRatesInCache(currencyExchangeRate);
     }
 
-    // Prepare lambda response
     const lambdaResponse = {
-        rate: currencyExchangeRate.rates[destinationCurrencySymbol],
+        rates: currencyExchangeRate.rates,
         lastUpdateDate: currencyExchangeRate.lastUpdateDate,
         responseType: cacheHit ? "cached" : "fresh"
     }
 
-    // Return response to the user
+    console.log("Currency exchange rate response:", JSON.stringify(lambdaResponse));
     return {
         statusCode: 200,
         body: JSON.stringify(lambdaResponse),

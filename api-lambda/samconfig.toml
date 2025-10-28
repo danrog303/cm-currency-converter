@@ -3,10 +3,11 @@ version = 0.1
 [default.deploy]
 [default.deploy.parameters]
 stack_name = "currency-conversion"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-jo8xxgsfcxmy"
 s3_prefix = "currency-conversion"
 region = "eu-central-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-disable_rollback = true
+disable_rollback = false
 image_repositories = []
+resolve_s3 = false
+s3_bucket = "sam-deployment-storage"
