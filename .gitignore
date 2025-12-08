@@ -1,3 +1,12 @@
+# Plasmo extension build artifacts
+plasmo-extension/node_modules/
+plasmo-extension/.plasmo/
+plasmo-extension/build/
+plasmo-extension/dist/
+
+# OS-specific junk
+Thumbs.db
+*.DS_Store
 
 # Created by https://www.toptal.com/developers/gitignore/api/osx,node,linux,windows,sam
 # Edit at https://www.toptal.com/developers/gitignore?templates=osx,node,linux,windows,sam

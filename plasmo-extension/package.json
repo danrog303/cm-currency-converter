@@ -1,0 +1,24 @@
+{
+  "name": "cm-currency-converter-extension",
+  "displayName": "Cardmarket Currency Converter",
+  "description": "Automatically converts Euro prices on Cardmarket to your preferred currency.",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "plasmo": "^0.86.3",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.267",
+    "@types/react": "^18.2.0",
+    "typescript": "^5.6.2"
+  }
+}

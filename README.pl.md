@@ -9,21 +9,26 @@ Angielska wersja pliku readme 🇬🇧 [jest dostępna tutaj](https://github.com
 **cm-currency-converter** (w skrócie ccc) jest wtyczką do przeglądarki, która umożliwia konwersję cen na stronie https://cardmarket.com. Domyślnie strona wyświetla ceny wyłącznie w Euro, ale przy użyciu wtyczki możliwe jest przeliczenie cen na dowolną wybraną przez siebie walutę.
 
 ## 🖥️ Jak użyć wtyczki?
-1. Zainstaluj wtyczkę Tampermonkey
-    - Firefox: [link](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
-    - Google Chrome: [link](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
-    - Opera: [link](https://addons.opera.com/en/extensions/details/tampermonkey-beta/)
-    - Microsoft Edge: [link](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd)
-    - Safari: [link](https://apps.apple.com/app/apple-store/id1482490089?mt=8)
-2. Kliknij [tutaj](https://raw.githubusercontent.com/danrog303/cm-currency-converter/main/userscript-client/ccc.user.js), aby wywołać instalator skryptu użytkownika
-3. Zainstaluj skrypt, postępując według instrukcji na ekranie
+1. Zainstaluj [Node.js 18+](https://nodejs.org/) i sklonuj to repozytorium.
+2. Wejdź do katalogu `plasmo-extension` i zainstaluj zależności:
+   ```
+   cd plasmo-extension
+   npm install
+   npm run dev
+   ```
+3. Otwórz `chrome://extensions`, włącz **Tryb deweloperski** i wybierz **Wczytaj rozpakowane**.
+4. Wskaż katalog `.plasmo/output/default/chrome-mv3-dev`, który powstał w kroku 2.
 
-Domyślnie skrypt konwertuje ceny z EUR na PLN. Walutę docelową można zmienić poprzez edycję zmiennych **userCurrencyCode** oraz **userCurrencyDisplaySymbol** w kodzie skryptu.
+ Polecenie `npm run build` tworzy produkcyjny build, a `npm run package` generuje paczkę zip gotową do przesłania do Chrome Web Store.
+
+Po wczytaniu rozszerzenia kliknij jego ikonę na pasku narzędzi, aby otworzyć popup i wybrać walutę docelową oraz symbol wyświetlania. Po zapisaniu ustawienia odśwież otwarte karty Cardmarket.
+
+Domyślnie rozszerzenie startuje z przelicznikiem EUR → PLN, lecz docelową walutę możesz w każdej chwili zmienić w popupie (ustawienie jest zapisywane w `chrome.storage.sync`).
 
 ## 🏗 Struktura projektu
 Projekt składa się z dwóch częsci:
-1. **user-script-client**:
-   - skrypt Tampermonkey, który pobiera kursy walut z **api-lambda** i podmienia ceny na stronie cardmarket.com
+1. **plasmo-extension**:
+   - rozszerzenie Chrome (Manifest V3) zbudowane na Plasmo. Ładuje skrypt treści na stronach Cardmarket, pobiera kursy z **api-lambda** i podmienia ceny w DOM
 2. **api-lambda**:
    - funkcja AWS Lambda, która pobiera kursy walut z https://exchangerate-api.com i cachuje je w tabeli DynamoDB
    - działająca instancja funkcji Lambda jest dostępna tutaj: https://currency.danielrogowski.net/eur/usd
