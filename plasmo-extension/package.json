@@ -2,7 +2,7 @@
   "name": "cm-currency-converter-extension",
   "displayName": "Cardmarket Currency Converter",
   "description": "Automatically converts Euro prices on Cardmarket to your preferred currency.",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": true,
   "type": "module",
   "manifest": {
@@ -20,7 +20,7 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.267",
+    "@types/chrome": "^0.3.7",
     "@types/react": "^18.3.31",
     "typescript": "^7.0.2"
   }
