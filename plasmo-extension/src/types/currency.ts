@@ -23,7 +23,11 @@ export const CURRENCY_PRESETS: CurrencyPreset[] = [
   { code: "GBP", symbol: "£", label: "Funt brytyjski (GBP)" },
   { code: "CHF", symbol: "CHF", label: "Frank szwajcarski (CHF)" },
   { code: "CZK", symbol: "Kč", label: "Korona czeska (CZK)" },
-  { code: "HUF", symbol: "Ft", label: "Forint węgierski (HUF)" }
+  { code: "HUF", symbol: "Ft", label: "Forint węgierski (HUF)" },
+  { code: "SEK", symbol: "kr", label: "Korona szwedzka (SEK)" },
+  { code: "NOK", symbol: "kr", label: "Korona norweska (NOK)" },
+  { code: "DKK", symbol: "kr", label: "Korona duńska (DKK)" },
+  { code: "RON", symbol: "lei", label: "Lej rumuński (RON)" }
 ]
 
 export const isCurrencySettings = (payload: unknown): payload is CurrencySettings => {
