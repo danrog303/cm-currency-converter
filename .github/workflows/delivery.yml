@@ -35,7 +35,7 @@ jobs:
       - run: pnpm package --target=chrome-mv3
       - name: Validate Chrome ZIP
         run: python ../.github/scripts/chrome-store.py validate build/chrome-mv3-prod.zip
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: chrome-extension
           path: plasmo-extension/build/chrome-mv3-prod.zip
@@ -59,7 +59,7 @@ jobs:
           cp samconfig.toml "$RUNNER_TEMP/sam-build/samconfig.toml"
           tar -C "$RUNNER_TEMP" -czf "$RUNNER_TEMP/sam-build.tar.gz" sam-build
       - if: github.event_name == 'push'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: sam-build
           path: ${{ runner.temp }}/sam-build.tar.gz
@@ -82,7 +82,7 @@ jobs:
             echo "::error::This run is stale. Use the workflow run for the current main commit."
             exit 1
           fi
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           name: sam-build
           path: ${{ runner.temp }}
@@ -111,7 +111,7 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           name: chrome-extension
           path: ${{ runner.temp }}
