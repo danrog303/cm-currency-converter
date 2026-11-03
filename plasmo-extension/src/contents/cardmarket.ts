@@ -1,6 +1,6 @@
 export const config = {
   matches: ["https://www.cardmarket.com/*"]
-} as const
+}
 
 type ExchangeRateResponse = {
   rates: Record<string, number>

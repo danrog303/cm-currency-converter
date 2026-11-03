@@ -1,6 +1,7 @@
 # cm-currency-converter  
 ![License badge](https://shields.io/github/license/danrog303/cm-currency-converter)
 ![Author badge](https://img.shields.io/badge/author-danrog303-informational)
+[![CI/CD status](https://img.shields.io/github/actions/workflow/status/danrog303/cm-currency-converter/delivery.yml?branch=main&event=push&label=ci%2Fcd&logo=github)](https://github.com/danrog303/cm-currency-converter/actions/workflows/delivery.yml)
 > Browser extension for converting item prices on Cardmarket.com
 
 Polish version of readme file 🇵🇱 [is available here](https://github.com/danrog303/cm-currency-converter/blob/main/README.pl.md).
@@ -33,5 +34,19 @@ The project consists of two parts:
    - AWS Lambda function that retrieves currency exchange rates from https://exchangerate-api.com and caches the result in a DynamoDB table
    - Working instance of the lambda function is available here: https://currency.danielrogowski.net/eur/usd
 
+## ⚒️ Continuous delivery
+
+When a newer extension version is ready, the workflow cancels any older version still under review before uploading the new package. If the upload fails, the earlier review stays cancelled. An approved version awaiting manual publication blocks a newer submission.
+
+Configure these repository variables before the first deployment.
+
+| Variable | Value |
+| --- | --- |
+| `AWS_DEPLOY_ROLE_ARN` | IAM role ARN for the existing SAM stack and artifact bucket |
+| `CWS_WORKLOAD_IDENTITY_PROVIDER` | Full Google Cloud Workload Identity Provider resource name |
+| `CWS_SERVICE_ACCOUNT` | Google Cloud service account email authorized in the Chrome Web Store Developer Dashboard |
+| `CWS_PUBLISHER_ID` | Chrome Web Store publisher ID |
+| `CWS_EXTENSION_ID` | Chrome Web Store ID of the existing extension |
+
 ## Screenshots
-![obraz](https://github.com/deru303/lab6/assets/82843647/4adf8425-a548-462e-b2b9-ce11301a304e)
+![img](https://github.com/deru303/lab6/assets/82843647/4adf8425-a548-462e-b2b9-ce11301a304e)

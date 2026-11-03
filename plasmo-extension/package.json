@@ -5,6 +5,9 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
+  "manifest": {
+    "permissions": ["storage"]
+  },
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
@@ -12,7 +15,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "plasmo": "^0.86.3",
+    "plasmo": "^0.90.5",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
   },

@@ -1,4 +1,5 @@
 # Plasmo extension build artifacts
+/.plasmo/
 plasmo-extension/node_modules/
 plasmo-extension/.plasmo/
 plasmo-extension/build/
@@ -49,6 +50,9 @@ lib-cov
 
 # IntelliJ Idea directory
 .idea/
+
+# Vscode
+.vscode/
 
 # Coverage directory used by tools like istanbul
 coverage

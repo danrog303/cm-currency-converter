@@ -1,10 +1,14 @@
 {
-  "name": "hello_world",
+  "name": "cm-currency-converter-api",
   "version": "1.0.0",
-  "description": "hello world sample for NodeJS",
+  "description": "AWS Lambda API that fetches and caches exchange rates for Cardmarket Currency Converter.",
   "main": "app.js",
-  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
-  "author": "SAM CLI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danrog303/cm-currency-converter.git",
+    "directory": "api-lambda/get-exchange-rates"
+  },
+  "author": "Daniel Rogowski",
   "license": "MIT",
   "type": "module",
   "dependencies": {

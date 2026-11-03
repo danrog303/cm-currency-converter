@@ -1,6 +1,7 @@
 # cm-currency-converter
 ![License badge](https://shields.io/github/license/danrog303/cm-currency-converter)
 ![Author badge](https://img.shields.io/badge/author-Daniel%20Rogowski-informational)
+[![Status CI/CD](https://img.shields.io/github/actions/workflow/status/danrog303/cm-currency-converter/delivery.yml?branch=main&event=push&label=ci%2Fcd&logo=github)](https://github.com/danrog303/cm-currency-converter/actions/workflows/delivery.yml)
 > Wtyczka do przeglądarki konwertująca ceny w serwisie Cardmarket.com
 
 Angielska wersja pliku readme 🇬🇧 [jest dostępna tutaj](https://github.com/danrog303/cm-currency-converter/blob/main/README.md).
