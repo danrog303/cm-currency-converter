@@ -17,17 +17,17 @@ export const DEFAULT_CURRENCY: CurrencySettings = {
 }
 
 export const CURRENCY_PRESETS: CurrencyPreset[] = [
-  { code: "PLN", symbol: "zł", label: "Polski złoty (PLN)" },
-  { code: "USD", symbol: "$", label: "Dolar amerykański (USD)" },
+  { code: "PLN", symbol: "zł", label: "Złoty polski (PLN)" },
+  { code: "USD", symbol: "$", label: "US Dollar (USD)" },
   { code: "EUR", symbol: "€", label: "Euro (EUR)" },
-  { code: "GBP", symbol: "£", label: "Funt brytyjski (GBP)" },
-  { code: "CHF", symbol: "CHF", label: "Frank szwajcarski (CHF)" },
-  { code: "CZK", symbol: "Kč", label: "Korona czeska (CZK)" },
-  { code: "HUF", symbol: "Ft", label: "Forint węgierski (HUF)" },
-  { code: "SEK", symbol: "kr", label: "Korona szwedzka (SEK)" },
-  { code: "NOK", symbol: "kr", label: "Korona norweska (NOK)" },
-  { code: "DKK", symbol: "kr", label: "Korona duńska (DKK)" },
-  { code: "RON", symbol: "lei", label: "Lej rumuński (RON)" }
+  { code: "GBP", symbol: "£", label: "British Pound (GBP)" },
+  { code: "CHF", symbol: "CHF", label: "Schweizer Franken (CHF)" },
+  { code: "CZK", symbol: "Kč", label: "Česká koruna (CZK)" },
+  { code: "HUF", symbol: "Ft", label: "Magyar forint (HUF)" },
+  { code: "SEK", symbol: "kr", label: "Svensk krona (SEK)" },
+  { code: "NOK", symbol: "kr", label: "Norske kroner (NOK)" },
+  { code: "DKK", symbol: "kr", label: "Dansk krone (DKK)" },
+  { code: "RON", symbol: "lei", label: "Leu românesc (RON)" }
 ]
 
 export const isCurrencySettings = (payload: unknown): payload is CurrencySettings => {

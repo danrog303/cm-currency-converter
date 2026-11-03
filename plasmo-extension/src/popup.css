@@ -97,6 +97,7 @@ body {
 
 .popup .status[data-tone="success"] {
   color: var(--accent);
+  margin-bottom: 6px;
 }
 
 .popup .status[data-tone="error"] {
