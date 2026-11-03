@@ -1,0 +1,119 @@
+:root {
+  color-scheme: dark;
+  --background: #111828;
+  --surface: #243654;
+  --border: #627793;
+  --text: #f5f7ff;
+  --muted: #c4d2e8;
+  --accent: #baff5c;
+  background: var(--background);
+  color: var(--text);
+  font: 14px/1.4 system-ui, sans-serif;
+}
+
+body {
+  width: 375px;
+  margin: 0;
+}
+
+.popup {
+  padding: 20px;
+}
+
+.popup h1 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.popup form,
+.popup label {
+  display: grid;
+}
+
+.popup form {
+  gap: 12px;
+}
+
+.popup label {
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.popup select,
+.popup input,
+.popup button {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 400;
+}
+
+.popup button {
+  border-color: transparent;
+  background: var(--accent);
+  color: #17260e;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.popup button:hover:enabled {
+  background: #d0ff93;
+}
+
+.popup button:active:enabled {
+  background: #a9e94f;
+}
+
+.popup button:disabled {
+  cursor: progress;
+  opacity: 0.65;
+}
+
+.popup :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.popup .hint,
+.popup .status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.popup .status:empty {
+  margin-top: -12px;
+}
+
+.popup .status[data-tone="success"] {
+  color: var(--accent);
+}
+
+.popup .status[data-tone="error"] {
+  color: #ffabab;
+}
+
+.popup-footer {
+  font-size: 12px;
+  text-align: center;
+}
+
+.popup-footer a {
+  color: var(--muted);
+  text-underline-offset: 3px;
+}
+
+.popup-footer a:hover,
+.popup-footer a:focus-visible {
+  color: var(--accent);
+}

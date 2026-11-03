@@ -2,6 +2,8 @@ import { useState, useEffect, type ChangeEvent, type FormEvent } from "react"
 import { CURRENCY_PRESETS, DEFAULT_CURRENCY, type CurrencySettings } from "./types/currency"
 import { readCurrencySettings, writeCurrencySettings } from "./utils/storage"
 
+import "./popup.css"
+
 interface StatusMessage {
   message: string
   tone: "info" | "success" | "error"
@@ -61,92 +63,21 @@ function IndexPopup() {
     }
   }
 
-  const styles = {
-    container: {
-      fontFamily: '"Segoe UI", Tahoma, sans-serif',
-      background: "#0f172a",
-      color: "#f1f5f9",
-      margin: 0,
-      padding: "16px",
-      width: "320px",
-      minHeight: "200px"
-    },
-    title: {
-      fontSize: "16px",
-      margin: "0 0 12px"
-    },
-    form: {
-      display: "flex",
-      flexDirection: "column" as const,
-      gap: "12px"
-    },
-    label: {
-      display: "flex",
-      flexDirection: "column" as const,
-      fontSize: "12px",
-      gap: "4px"
-    },
-    select: {
-      padding: "6px",
-      borderRadius: "4px",
-      border: "1px solid #1e293b",
-      background: "#1e293b",
-      color: "#f1f5f9"
-    },
-    input: {
-      padding: "6px",
-      borderRadius: "4px",
-      border: "1px solid #1e293b",
-      background: "#1e293b",
-      color: "#f1f5f9"
-    },
-    button: {
-      padding: "8px",
-      border: "none",
-      borderRadius: "4px",
-      fontWeight: 600,
-      cursor: "pointer",
-      background: "#38bdf8",
-      color: "#0f172a"
-    },
-    buttonDisabled: {
-      padding: "8px",
-      border: "none",
-      borderRadius: "4px",
-      fontWeight: 600,
-      cursor: "progress",
-      background: "#38bdf8",
-      color: "#0f172a",
-      opacity: 0.6
-    },
-    hint: {
-      fontSize: "11px",
-      color: "#cbd5f5",
-      margin: 0
-    },
-    status: {
-      minHeight: "16px",
-      fontSize: "12px",
-      color: status?.tone === "error" ? "#f87171" : status?.tone === "success" ? "#4ade80" : "transparent"
-    }
-  }
-
   if (!isInitialized) {
     return (
-      <div style={styles.container}>
-        <div>Loading...</div>
-      </div>
+      <main className="popup">
+        <div role="status">Loading...</div>
+      </main>
     )
   }
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Target Currency</h1>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <label style={styles.label}>
-          Currency
+    <main className="popup">
+      <h1>Cardmarket Currency Converter</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Target Currency
           <select
-            style={styles.select}
             value={currencyCode}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => handleCodeChange(e.target.value)}
             required
@@ -158,10 +89,9 @@ function IndexPopup() {
             ))}
           </select>
         </label>
-        <label style={styles.label}>
+        <label>
           Display Symbol
           <input
-            style={styles.input}
             type="text"
             value={currencySymbol}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleSymbolChange(e.target.value)}
@@ -169,21 +99,22 @@ function IndexPopup() {
             required
           />
         </label>
-        <p style={styles.hint}>
+        <p className="hint">
           Changing currency may require refreshing open Cardmarket tabs.
         </p>
-        <button
-          type="submit"
-          style={isLoading ? styles.buttonDisabled : styles.button}
-          disabled={isLoading}
-        >
+        <button type="submit" disabled={isLoading}>
           Save
         </button>
-        <div style={styles.status} role="status">
+        <div className="status" data-tone={status?.tone} role="status">
           {status?.message}
         </div>
       </form>
-    </div>
+      <footer className="popup-footer">
+        <a href="https://ko-fi.com/danrog303" target="_blank" rel="noopener noreferrer">
+          Support me on Ko-fi
+        </a>
+      </footer>
+    </main>
   )
 }
 
