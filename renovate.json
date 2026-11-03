@@ -9,7 +9,8 @@
         "plasmo-extension/package.json",
         "api-lambda/get-exchange-rates/package.json"
       ],
-      "bumpVersion": "patch"
+      "bumpVersion": "patch",
+      "rangeStrategy": "bump"
     },
     {
       "description": "Give npm releases three days before merging",
