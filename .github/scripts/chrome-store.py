@@ -118,12 +118,12 @@ def submit(package, version):
     if upload.get("crxVersion", version) != version:
         raise ValueError("Chrome Web Store returned an unexpected package version")
 
-    payload = json.dumps({"publishType": "STAGED_PUBLISH"}).encode("utf-8")
+    payload = json.dumps({"publishType": "DEFAULT_PUBLISH"}).encode("utf-8")
     submission = store_request(f"{item_url}:publish", payload, "application/json")
     state = submission.get("state")
-    if state not in {"PENDING_REVIEW", "STAGED"}:
+    if state not in {"PENDING_REVIEW", "PUBLISHED", "PUBLISHED_TO_TESTERS"}:
         raise ValueError(f"Unexpected Chrome Web Store submission state: {state}")
-    print(f"Chrome Web Store version {version}: {state}. Publish from the Developer Dashboard after approval.")
+    print(f"Chrome Web Store version {version}: {state}")
 
 
 if __name__ == "__main__":
