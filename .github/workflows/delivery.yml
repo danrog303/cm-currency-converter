@@ -24,7 +24,7 @@ jobs:
       - uses: pnpm/action-setup@v6
         with:
           version: 9.15.9
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
           cache: pnpm
@@ -48,7 +48,7 @@ jobs:
         working-directory: api-lambda
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
       - uses: aws-actions/setup-sam@v3
