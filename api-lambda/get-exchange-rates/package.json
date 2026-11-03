@@ -1,6 +1,6 @@
 {
   "name": "cm-currency-converter-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AWS Lambda API that fetches and caches exchange rates for Cardmarket Currency Converter.",
   "main": "app.js",
   "repository": {
@@ -15,7 +15,7 @@
     "@aws-sdk/client-dynamodb": "^3.1161.0",
     "@aws-sdk/lib-dynamodb": "^3.1161.0",
     "@aws-sdk/util-dynamodb": "^3.996.9",
-    "axios": ">=0.21.1",
+    "axios": ">=0.34.0",
     "node-fetch": "^3.3.1"
   },
   "scripts": {
