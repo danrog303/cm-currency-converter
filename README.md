@@ -32,7 +32,7 @@ The project consists of two parts:
    - Manifest V3 Chrome extension built with Plasmo. It injects a content script on Cardmarket pages, fetches exchange rates from **api-lambda**, and replaces prices in the DOM
 2. **api-lambda**:  
    - AWS Lambda function that retrieves currency exchange rates from https://exchangerate-api.com and caches the result in a DynamoDB table
-   - Working instance of the lambda function is available here: https://currency.danielrogowski.net/eur/usd
+   - [Example production API response for USD](https://34wx13a345.execute-api.eu-central-1.amazonaws.com/Prod/currency/USD)
 
 ## ⚒️ Continuous delivery
 

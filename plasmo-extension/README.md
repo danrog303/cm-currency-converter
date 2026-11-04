@@ -1,6 +1,6 @@
 # Cardmarket Currency Converter (Plasmo)
 
-Manifest V3 Chrome extension that injects a content script on Cardmarket pages and rewrites prices using exchange rates from `https://currency.danielrogowski.net`.
+Manifest V3 Chrome extension that injects a content script on Cardmarket pages and rewrites prices using exchange rates from `https://34wx13a345.execute-api.eu-central-1.amazonaws.com/Prod/currency/{currencyCode}`.
 
 ## Development
 

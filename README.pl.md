@@ -32,7 +32,7 @@ Projekt składa się z dwóch częsci:
    - rozszerzenie Chrome (Manifest V3) zbudowane na Plasmo. Ładuje skrypt treści na stronach Cardmarket, pobiera kursy z **api-lambda** i podmienia ceny w DOM
 2. **api-lambda**:
    - funkcja AWS Lambda, która pobiera kursy walut z https://exchangerate-api.com i cachuje je w tabeli DynamoDB
-   - działająca instancja funkcji Lambda jest dostępna tutaj: https://currency.danielrogowski.net/eur/usd
+   - [Przykładowa odpowiedź produkcyjnego API dla USD](https://34wx13a345.execute-api.eu-central-1.amazonaws.com/Prod/currency/USD)
 
 ## Zrzuty ekranu
 ![obraz](https://github.com/deru303/lab6/assets/82843647/4adf8425-a548-462e-b2b9-ce11301a304e)
