@@ -110,6 +110,9 @@ body {
 }
 
 .popup-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: var(--muted);
   text-underline-offset: 3px;
 }

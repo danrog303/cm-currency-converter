@@ -1,6 +1,7 @@
 import { useState, useEffect, type ChangeEvent, type FormEvent } from "react"
 import { CURRENCY_PRESETS, DEFAULT_CURRENCY, type CurrencySettings } from "./types/currency"
 import { readCurrencySettings, writeCurrencySettings } from "./utils/storage"
+import { COFFEE_ICON_PATH, SUPPORT_LINK_TEXT, SUPPORT_URL } from "./utils/support"
 
 import "./popup.css"
 
@@ -110,8 +111,21 @@ function IndexPopup() {
         </div>
       </form>
       <footer className="popup-footer">
-        <a href="https://ko-fi.com/danrog303" target="_blank" rel="noopener noreferrer">
-          Support me on Ko-fi
+        <a href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">
+          <svg
+            aria-hidden="true"
+            width="14"
+            height="14"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d={COFFEE_ICON_PATH} />
+          </svg>
+          {SUPPORT_LINK_TEXT}
         </a>
       </footer>
     </main>

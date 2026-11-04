@@ -1,3 +1,5 @@
+import { syncCartSupportBanner } from "../utils/cart-support-banner"
+
 export const config = {
   matches: ["https://www.cardmarket.com/*"]
 }
@@ -269,6 +271,7 @@ const resumeObserver = () => {
 }
 
 const onContentMutated: MutationCallback = () => {
+  syncCartSupportBanner()
   convertCurrenciesInDocumentBody()
 }
 
@@ -293,6 +296,7 @@ const initialize = async () => {
   }
 
   subscribeToCurrencySettingChanges()
+  syncCartSupportBanner()
   startObserver()
   convertCurrenciesInDocumentBody()
 }
