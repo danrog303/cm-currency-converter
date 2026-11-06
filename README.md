@@ -48,5 +48,15 @@ Configure these repository variables before the first deployment.
 | `CWS_PUBLISHER_ID` | Chrome Web Store publisher ID |
 | `CWS_EXTENSION_ID` | Chrome Web Store ID of the existing extension |
 
+### Exchange Rates API key
+
+The Lambda reads its https://exchangerate-api.com key at runtime from the SSM Parameter Store SecureString parameter `/currency-conversion/exchange-rates-api-key` (encrypted with the AWS managed `aws/ssm` key, so it costs nothing). Create it once in `eu-central-1` before the first deployment, and use the same command with `--overwrite` to rotate the key:
+
+```bash
+aws ssm put-parameter --region eu-central-1 --type SecureString --name /currency-conversion/exchange-rates-api-key --value '<your-api-key>'
+```
+
+A different parameter name can be passed with the `ExchangeRatesApiKeyParameterName` stack parameter (without the leading slash).
+
 ## Screenshots
 ![img](https://github.com/deru303/lab6/assets/82843647/4adf8425-a548-462e-b2b9-ce11301a304e)
