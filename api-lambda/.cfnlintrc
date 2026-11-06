@@ -1,3 +1,0 @@
-# Keep validation enabled while the existing Lambda still uses Node.js 20.
-ignore_checks:
-  - W2531

@@ -21,7 +21,7 @@ Resources:
       FunctionName: currency-conversion-lambda
       CodeUri: get-exchange-rates/
       Handler: app.lambdaHandler
-      Runtime: nodejs20.x
+      Runtime: nodejs24.x
       Policies:
         - AWSLambdaExecute
         - DynamoDBCrudPolicy:
