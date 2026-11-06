@@ -34,5 +34,15 @@ Projekt składa się z dwóch częsci:
    - funkcja AWS Lambda, która pobiera kursy walut z https://exchangerate-api.com i cachuje je w tabeli DynamoDB
    - [Przykładowa odpowiedź produkcyjnego API dla USD](https://34wx13a345.execute-api.eu-central-1.amazonaws.com/Prod/currency/USD)
 
+## 🔑 Klucz do Exchange Rates API
+
+Lambda odczytuje klucz do https://exchangerate-api.com w trakcie działania z parametru SecureString `/currency-conversion/exchange-rates-api-key` w SSM Parameter Store (szyfrowanego zarządzanym przez AWS kluczem `aws/ssm`, więc nic nie kosztuje). Utwórz go raz w regionie `eu-central-1` przed pierwszym wdrożeniem. Do rotacji klucza użyj tego samego polecenia z flagą `--overwrite`:
+
+```bash
+aws ssm put-parameter --region eu-central-1 --type SecureString --name /currency-conversion/exchange-rates-api-key --value '<twój-klucz-api>'
+```
+
+Inną nazwę parametru można przekazać przez parametr stosu `ExchangeRatesApiKeyParameterName` (bez początkowego ukośnika).
+
 ## Zrzuty ekranu
 ![obraz](https://github.com/deru303/lab6/assets/82843647/4adf8425-a548-462e-b2b9-ce11301a304e)

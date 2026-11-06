@@ -4,6 +4,14 @@ Description: >
   currency-conversion
   Sample SAM Template for currency-conversion
 
+Parameters:
+  ExchangeRatesApiKeyParameterName:
+    Type: String
+    Default: currency-conversion/exchange-rates-api-key
+    Description: >
+      Name (without the leading slash) of the SSM SecureString parameter that
+      holds the exchangerate-api.com API key
+
 Globals:
   Function:
     Timeout: 30
@@ -11,7 +19,7 @@ Globals:
     Environment:
       Variables:
         AWS_LAMBDA_REGION: eu-central-1
-        EXCHANGE_RATES_API_KEY: 94e07eca3342d91094a2c24f  # key can be generated on exchangerate-api.com
+        EXCHANGE_RATES_API_KEY_PARAMETER: !Sub "/${ExchangeRatesApiKeyParameterName}"
         DYNAMODB_CACHE_TABLE: !Ref CurrencyConversionCache
 
 Resources:
@@ -26,6 +34,8 @@ Resources:
         - AWSLambdaExecute
         - DynamoDBCrudPolicy:
             TableName: !Ref CurrencyConversionCache
+        - SSMParameterReadPolicy:
+            ParameterName: !Ref ExchangeRatesApiKeyParameterName
       Architectures:
       - x86_64
       Events:

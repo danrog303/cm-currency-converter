@@ -1,11 +1,40 @@
 import fetch from "node-fetch";
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { DynamoDBClient, GetItemCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 
 const awsRegion = process.env.AWS_LAMBDA_REGION;
-const exchangeRatesApiKey = process.env.EXCHANGE_RATES_API_KEY;
+const exchangeRatesApiKeyParameterName = process.env.EXCHANGE_RATES_API_KEY_PARAMETER;
 const dynamoDBCacheTableName = process.env.DYNAMODB_CACHE_TABLE;
 const dynamoDB = new DynamoDBClient({ region: awsRegion });
+const ssm = new SSMClient({ region: awsRegion });
+
+let exchangeRatesApiKeyPromise = null;
+
+/**
+ * Reads the Exchange Rates API key from the SSM SecureString parameter.
+ * The key is fetched once per execution environment and then reused.
+ * A failed read is not cached, so the next invocation retries it.
+ */
+const getExchangeRatesApiKey = () => {
+    if (exchangeRatesApiKeyPromise !== null) {
+        return exchangeRatesApiKeyPromise;
+    }
+
+    const parameterRequest = new GetParameterCommand({
+        Name: exchangeRatesApiKeyParameterName,
+        WithDecryption: true
+    });
+
+    exchangeRatesApiKeyPromise = ssm.send(parameterRequest)
+        .then((parameterResponse) => parameterResponse.Parameter.Value)
+        .catch((error) => {
+            exchangeRatesApiKeyPromise = null;
+            throw error;
+        });
+
+    return exchangeRatesApiKeyPromise;
+};
 
 /**
  * If DynamoDB cache table contains a valid cache, returns cached Exchange Rates API response.
@@ -54,6 +83,7 @@ const putExchangeRatesInCache = async (exchangeRatesToCache) => {
  * Downloads exchange rates from the Exchange Rates API.
  */
 const fetchExchangeRateFromRemoteApi = async (sourceCurrency) => {
+    const exchangeRatesApiKey = await getExchangeRatesApiKey();
     const exchangeRateEndpoint = `https://v6.exchangerate-api.com/v6/${exchangeRatesApiKey}/latest/${sourceCurrency}`;
     const exchangeRateJson = await fetch(exchangeRateEndpoint);
     const exchangeRateData = await exchangeRateJson.json();
